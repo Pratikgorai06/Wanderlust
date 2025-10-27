@@ -20,6 +20,8 @@
       <p class="card-text"><%= listing.country %></p>
     </div>
   </div>
+
+  <%if(currUser){%>
   <div class="btns">
     <a
       class="btn btn-dark mb-3 col-1 offset-3 edit-btn"
@@ -30,6 +32,7 @@
       <button class="btn btn-dark offset-5 mb-3">Delete</button>
     </form>
   </div>
+  <% } %>
 
   <div class="col-8 offset-3 mb-3">
     <%if(currUser){%>
@@ -137,7 +140,9 @@
           method="post"
           action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=Delete"
         >
-          <button class="btn btn-sm btn-dark">Delete</button>
+          <%if(currUser){%>
+          <br />
+          <button class="btn btn-sm btn-dark">Delete</button> <% } %>
         </form>
       </div>
       <% } %>
