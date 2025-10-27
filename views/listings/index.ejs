@@ -9,8 +9,8 @@
   }
   .filter {
     text-align: center;
-    margin-right: 2rem;
-    margin-top: 2rem;
+    /* margin-right: 2rem;*/
+    margin-top: 1rem;
     opacity: 0.7;
   }
   .filter:hover {
@@ -31,7 +31,7 @@
     margin-left: 2rem;
     display: flex;
     align-items: center;
-  } /* --- Container for entire bar --- */
+  }
   .filters-bar {
     display: flex;
     align-items: center;
@@ -41,7 +41,6 @@
     margin-bottom: 1rem;
   }
 
-  /* --- Scrollable filter section --- */
   .filters-wrapper {
     position: relative;
     flex: 1;
@@ -50,7 +49,6 @@
     overflow: hidden;
   }
 
-  /* Scrollable content */
   #filters {
     display: flex;
     flex-wrap: nowrap;
@@ -58,14 +56,13 @@
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     gap: 2rem;
-    padding: 1rem 3rem; /* space for arrows */
-    scrollbar-width: none; /* Firefox */
+    padding: 1rem 3rem;
+    scrollbar-width: none;
   }
   #filters::-webkit-scrollbar {
-    display: none; /* Chrome, Safari */
+    display: none;
   }
 
-  /* Individual filter items */
   .filter {
     flex: 0 0 auto;
     text-align: center;
@@ -81,8 +78,6 @@
     font-size: 0.8rem;
     margin-top: 0.25rem;
   }
-
-  /* --- Tax toggle aligned right --- */
   .tax-toggle {
     flex: 0 0 auto;
     border: 1px solid #ccc;
@@ -95,7 +90,6 @@
     background-color: #fff;
   }
 
-  /* --- Scroll arrows --- */
   .scroll-btn {
     position: absolute;
     top: 50%;
@@ -123,7 +117,6 @@
     right: 0.5rem;
   }
 
-  /* --- Fade edges like Airbnb --- */
   .filters-wrapper::before,
   .filters-wrapper::after {
     content: "";
@@ -141,6 +134,34 @@
   .filters-wrapper::after {
     right: 0;
     background: linear-gradient(to left, white 60%, transparent);
+  }
+  @media (max-width: 768px) {
+    .filters-bar {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.75rem;
+    }
+
+    .filters-wrapper {
+      order: 1;
+    }
+    .tax-toggle {
+      order: 2;
+      width: 100%;
+      margin: 0;
+      border-radius: 0.75rem;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .tax-toggle .form-check {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .form-check-label {
+      font-size: 0.95rem;
+    }
   }
 </style>
 <div class="filters-bar">
@@ -232,7 +253,10 @@
           <b> <%= listing.title %> </b> <br />
           &#8377;<%= listing.price ? listing.price.toLocaleString("en-IN") :
           "N/A" %> /night
-          <i class="tax-info">&nbsp;+18% GST</i>
+          <span class="tax-info" style="display: none">
+            (Total ₹<%= parseInt(listing.price * 1.18).toLocaleString("en-IN")
+            %> incl. tax)
+          </span>
         </p>
       </div>
     </div>
@@ -241,16 +265,11 @@
 </div>
 
 <script>
-  let taxSwitch = document.getElementById("switchCheckDefault");
-  taxSwitch.addEventListener("click", () => {
-    let taxInfo = document.getElementsByClassName("tax-info");
-    for (info of taxInfo) {
-      if (info.style.display != "inline") {
-        info.style.display = "inline";
-      } else {
-        info.style.display = "none";
-      }
-    }
+  const taxSwitch = document.getElementById("switchCheckDefault");
+  taxSwitch.addEventListener("change", () => {
+    document.querySelectorAll(".tax-info").forEach((info) => {
+      info.style.display = taxSwitch.checked ? "inline" : "none";
+    });
   });
 </script>
 <script>

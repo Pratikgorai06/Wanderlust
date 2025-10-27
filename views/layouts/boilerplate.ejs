@@ -49,5 +49,14 @@
     ></script>
     <script src="/js/script.js"></script>
     <script src="/js/map.js"></script>
+    <script>
+      setTimeout(() => {
+        const alerts = document.querySelectorAll(".flash-alert");
+        alerts.forEach((alert) => {
+          const bsAlert = bootstrap.Alert.getOrCreateInstance(alert);
+          bsAlert.close();
+        });
+      }, 4000); // 4 seconds
+    </script>
   </body>
 </html>
