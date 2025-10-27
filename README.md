@@ -3,7 +3,8 @@
 Wanderlust is a full-stack Node.js & Express web application for creating and managing travel or property listings.
 It allows users to explore destinations, add listings, and manage their own travel experiences — all powered by a modern RESTful backend and EJS-based frontend.
 
-👉 Live Demo → wanderlust-0oy8.onrender.com/listings
+👉 **Live Demo → https://wanderlust-0oy8.onrender.com/listings**
+
 
 🚀 Overview
 
